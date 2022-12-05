@@ -22,22 +22,23 @@ class Game {
             }catch(IOException e){
                 System.out.println("\nPlease put in a proper action\n" + question);
             }
-
+            
             //Checks input for appropriate action
             if(input.equals("play")){
+    
+                System.out.println("\nNew board created:");
+                BoardManager.printBoard(BoardManager.createBoard());
                 
                 System.out.println("\nYou played the Game!\n" + question);
-                
-            }else if(input.equals("quit")){
 
+            }else if(input.equals("quit")){
                 quitGame = true;
-                
             }else{
                 System.out.println("\nPlease give a valid action.\n" + question);
             }
             
         }
-
+        
         System.out.println("\nYou quit the game! Thanks for playing!");
     }
 }
