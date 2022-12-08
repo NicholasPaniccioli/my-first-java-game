@@ -27,6 +27,45 @@ class BoardManager {
         }
         System.out.println("\n_|_________________________________\n    1  2  3  4  5  6  7  8  9  10");
     }
+
+    //Takes the targeted board and marks it with given coordinates
+    public static void markBoard(String[][] board, String coords){
+        int firstCoords = letterToNum(coords);
+        int secondCoords = Integer.parseInt(coords.substring(1)) - 1; //Subtracts one to account for arrays starting at 0
+
+        System.out.println(firstCoords + " " + secondCoords);
+
+        board[firstCoords][secondCoords] = "X";
+    }
+
+    //Checks the letter given by the player and gives the corresponding number
+    private static int letterToNum(String coords){
+        switch(coords.charAt(0)){
+            case 'A': case 'a':
+                return 0;
+            case 'B': case 'b':
+                return 1;
+            case 'C': case 'c':
+                return 2;
+            case 'D': case 'd':
+                return 3;
+            case 'E': case 'e':
+                return 4;
+            case 'F': case 'f':
+                return 5;
+            case 'G': case 'g':
+                return 6;
+            case 'H': case 'h':
+                return 7;
+            case 'I': case 'i':
+                return 8;
+            case 'J': case 'j':
+                return 9;
+            default:
+                return 0;
+        }
+    }
+
 }
 
 

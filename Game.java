@@ -11,6 +11,7 @@ class Game {
         
         String intro = "Welcome to the Game!\n";
         String question = "Would you like to PLAY or QUIT: ";
+        String markQuestion = "Pick a Spot to Mark:";
         System.out.println(intro + question);
 
         //Loops until the player quits the game
@@ -27,14 +28,25 @@ class Game {
             if(input.equals("play")){
     
                 System.out.println("\nNew board created:");
-                BoardManager.printBoard(BoardManager.createBoard());
-                
+                String[][] playerBoard = BoardManager.createBoard();
+                BoardManager.printBoard(playerBoard);
+
+                //With board created asks where player wants to mark
+                System.out.print("\n" + markQuestion);
+                try{
+                    input = buffer.readLine().trim();
+                    BoardManager.markBoard(playerBoard, input);
+                    BoardManager.printBoard(playerBoard);
+                }catch(IOException e){
+                    System.out.println("\nPlease put in a proper action\n" + question);
+                }
+
                 System.out.println("\nYou played the Game!\n" + question);
 
             }else if(input.equals("quit")){
                 quitGame = true;
             }else{
-                System.out.println("\nPlease give a valid action.\n" + question);
+                System.out.println("\nPlease give a valid action.\n" + markQuestion);
             }
             
         }
