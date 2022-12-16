@@ -62,7 +62,7 @@ class BoardManager {
             case 'J': case 'j':
                 return 9;
             default:
-                return 0;
+                return -1;
         }
     }
 
