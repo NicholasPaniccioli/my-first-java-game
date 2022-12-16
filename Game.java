@@ -38,17 +38,20 @@ class Game {
 
                     System.out.print("\n" + markQuestion);
                     try{
-                        input = buffer.readLine().trim();
+                        input = buffer.readLine().trim().toLowerCase();
                     }catch(IOException e){
                         System.out.println("\nPlease put in a proper action\n" + question);
                     }
 
                     //Checks if the player wants to quit or mark
+                    //Also checks that input is an acceptable format
                     if(input.equals("quit")){
                         quitGame = true;
-                    }else if(input.length() <= 3){
+                    }else if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1){
                         BoardManager.markBoard(playerBoard, input);
                         BoardManager.printBoard(playerBoard);
+                    }else {
+                        System.out.println("\nPlease put in an acceptable response\n" + markQuestion);
                     }
                 }
                 System.out.println("\nYou played the Game! Thanks for playing!\n" + question);

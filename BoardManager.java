@@ -39,7 +39,7 @@ class BoardManager {
     }
 
     //Checks the letter given by the player and gives the corresponding number
-    private static int letterToNum(String coords){
+    public static int letterToNum(String coords){
         switch(coords.charAt(0)){
             case 'A': case 'a':
                 return 0;
