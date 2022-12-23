@@ -38,14 +38,12 @@ class BoardManager {
     }
 
     //Lets the player select where they plan on putting pieces
-    public static void placePieces(String[][]board, String coords1, String coords2, int length){
+    public static void placePieces(String[][] board, String coords1, String coords2, int length){
         boolean valid;
-        valid = placingCheck(coords1, coords2, length);
-
-
+        valid = placingCheck(board, coords1, coords2, length);
     }
     //Helper method to check all conditions before a piece can be placed
-    public static boolean placingCheck(String coords1, String coords2, int length){
+    public static boolean placingCheck(String[][] board, String coords1, String coords2, int length){
 
         //Coordinates for the 1st Set
         int letter1 = letterToNum(coords1);
@@ -55,27 +53,52 @@ class BoardManager {
         int letter2 = letterToNum(coords2);
         int number2 = Integer.parseInt(coords2.substring(1)) - 1;
 
-        //FYI Letter = Row | Number = Column
+        //Determines the bigger and smaller numbers for each group
+        int bigLetter = biggerNumber(letter1, letter2);
+        int smallLetter = smallerNumber(letter1, letter2);
+
+        int bigNumber = biggerNumber(number1, number2);
+        int smallNumber = smallerNumber(number1, number2);
+
         //First Checks that piece is not being placed diagonally
-        //Second Checks that coords given will match with length of piece
         if(letter1 == letter2){
+            
+            //Second Checks that coords given will match with length of piece
             int distance = Math.abs((number1 - number2));
-            if(distance != length)
-            {
+            if(distance != length){
                 System.out.println("The coordinates given do no match the length of the piece.\n Please give new coordinates.");
                 return false;
             }
+            
+            //Third Checks that coords do not overlap another piece
+            for(int i = smallNumber; i <= bigNumber; i++){
+                if(board[letter1][i] != "-"){
+                    System.out.println("The coordinates given overlap another piece.\n Please give new coordinates.");
+                    return false;
+                }
+            }
+
             return true;
 
         }else if (number1 == number2){
+
+            //Second Checks that coords given will match with length of piece
             int distance = Math.abs((letter1 - letter2));
-            if(distance != length)
-            {
+            if(distance != length){
                 System.out.println("The coordinates given do no match the length of the piece.\n Please give new coordinates.");
                 return false;
             }
+
+            //Third Checks that coords do not overlap another piece
+            for(int i = smallLetter; i <= bigLetter; i++){
+                if(board[number1][i] != "-"){
+                    System.out.println("The coordinates given overlap another piece.\n Please give new coordinates.");
+                    return false;
+                }
+            }
+
             return true;
-            
+
         }else{
             System.out.println("The coordinate given do not place the piece in one row or column.\n Please give new coordinates.");
             return false;
@@ -110,6 +133,12 @@ class BoardManager {
         }
     }
 
+    public static int biggerNumber(int num1, int num2){
+        return (num1 > num2 && num1 != num2) ? num1 : num2;
+    }
+    public static int smallerNumber(int num1, int num2){
+        return (num1 < num2 && num1 != num2) ? num1 : num2;
+    }
 }
 
 
