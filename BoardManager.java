@@ -10,7 +10,6 @@ class BoardManager {
                 board[i][j] = "-";
             }
         }
-
         return board;
     }
 
@@ -36,6 +35,51 @@ class BoardManager {
         System.out.println(firstCoords + " " + secondCoords);
 
         board[firstCoords][secondCoords] = "X";
+    }
+
+    //Lets the player select where they plan on putting pieces
+    public static void placePieces(String[][]board, String coords1, String coords2, int length){
+        boolean valid;
+        valid = placingCheck(coords1, coords2, length);
+
+
+    }
+    //Helper method to check all conditions before a piece can be placed
+    public static boolean placingCheck(String coords1, String coords2, int length){
+
+        //Coordinates for the 1st Set
+        int letter1 = letterToNum(coords1);
+        int number1 = Integer.parseInt(coords1.substring(1)) - 1;
+        
+        //Coordinates for the 2nd Set
+        int letter2 = letterToNum(coords2);
+        int number2 = Integer.parseInt(coords2.substring(1)) - 1;
+
+        //FYI Letter = Row | Number = Column
+        //First Checks that piece is not being placed diagonally
+        //Second Checks that coords given will match with length of piece
+        if(letter1 == letter2){
+            int distance = Math.abs((number1 - number2));
+            if(distance != length)
+            {
+                System.out.println("The coordinates given do no match the length of the piece.\n Please give new coordinates.");
+                return false;
+            }
+            return true;
+
+        }else if (number1 == number2){
+            int distance = Math.abs((letter1 - letter2));
+            if(distance != length)
+            {
+                System.out.println("The coordinates given do no match the length of the piece.\n Please give new coordinates.");
+                return false;
+            }
+            return true;
+            
+        }else{
+            System.out.println("The coordinate given do not place the piece in one row or column.\n Please give new coordinates.");
+            return false;
+        }
     }
 
     //Checks the letter given by the player and gives the corresponding number

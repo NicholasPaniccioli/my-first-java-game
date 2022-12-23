@@ -12,7 +12,7 @@ class Game {
         
         String intro = "Welcome to the Game!\n";
         String question = "Would you like to PLAY or QUIT: ";
-        String markQuestion = "Pick a Spot to Mark or QUIT:";
+        String markQuestion = "Pick a Spot to Mark or QUIT: ";
         
         //Beginning of the Program asks for user input
         System.out.println(intro + question);
@@ -50,7 +50,7 @@ class Game {
                     }else if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1){
                         BoardManager.markBoard(playerBoard, input);
                         BoardManager.printBoard(playerBoard);
-                    }else {
+                    }else{
                         System.out.println("\nPlease put in an acceptable response\n" + markQuestion);
                     }
                 }
@@ -62,9 +62,7 @@ class Game {
             }else{
                 System.out.println("\nPlease give a valid action.\n" + question);
             }
-            
         }
-        
         System.out.println("\nYou quit the program");
     }
 }
