@@ -28,19 +28,25 @@ class BoardManager {
     }
 
     //Takes the targeted board and marks it with given coordinates
-    public static void markBoard(String[][] board, String coords){
+    public static void markBoard(String[][] board, String coords, boolean placing){
         int firstCoords = letterToNum(coords);
         int secondCoords = Integer.parseInt(coords.substring(1)) - 1; //Subtracts one to account for arrays starting at 0
 
+        //DEBUGGING USE
         System.out.println(firstCoords + " " + secondCoords);
 
-        board[firstCoords][secondCoords] = "X";
+        //If in placing mode, uses correct marker
+        //If not, assumes hitting
+        if(placing){
+            board[firstCoords][secondCoords] = "O";
+        }else{
+            board[firstCoords][secondCoords] = "X";
+        }
     }
 
     //Lets the player select where they plan on putting pieces
     public static void placePieces(String[][] board, String coords1, String coords2, int length){
-        boolean valid;
-        valid = placingCheck(board, coords1, coords2, length);
+        boolean valid = placingCheck(board, coords1, coords2, length);
     }
     //Helper method to check all conditions before a piece can be placed
     public static boolean placingCheck(String[][] board, String coords1, String coords2, int length){
@@ -85,7 +91,7 @@ class BoardManager {
             //Second Checks that coords given will match with length of piece
             int distance = Math.abs((letter1 - letter2));
             if(distance != length){
-                System.out.println("The coordinates given do no match the length of the piece.\n Please give new coordinates.");
+                System.out.println("The coordinates given do not match the length of the piece.\n Please give new coordinates.");
                 return false;
             }
 
