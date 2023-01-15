@@ -49,50 +49,53 @@ class Game {
                     }
 
                     if(input.equals("place")){
+                        //If they are placing needs to refresh board to make new space.
+                        System.out.println("Reseting board!");
+                        playerBoard = BoardManager.createBoard();
+                        System.out.println("Board was reset!");
                         String startPoint;
                         String endPoint;
                         
                         for(int i = 0; i < 5; i++){
+                            boolean placed = false;
 
-                            System.out.println("Pick a Starting Point for a piece that's " + pieceLengths[i] + " spaces in length: ");
-                            try{
-                                input = buffer.readLine().trim().toLowerCase();
-                            }catch(IOException e){
-                                System.out.println("\nPlease put in a proper action\n");
-                            }
-                            
-                            //Checks that the input is a coordinate and then stores it
-                            if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1){
-                                startPoint = input;
-                                System.out.println("Pick an Ending Point for the piece: ");
+                            while(!placed){
+                                System.out.println("Pick a Starting Point for a piece that's " + pieceLengths[i] + " spaces in length: ");
                                 try{
                                     input = buffer.readLine().trim().toLowerCase();
                                 }catch(IOException e){
                                     System.out.println("\nPlease put in a proper action\n");
                                 }
-
-                                //Checks that the second input is a coordinate and stores it
-                                if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1){
-                                    endPoint = input;
-
-                                    //With coordinates collected begins to check they are valid for placement
-                                   boolean placeable = BoardManager.placingCheck(playerBoard, startPoint, endPoint, pieceLengths[i]);
-
-                                   if(placeable){
-                                        //TO BE DONE NEXT
-                                        //Code to place the piece
-                                   }else{
-                                        //TO BE DONE NEXT
-                                        //Otherwise restarts to allow player to put in new inputs
-                                   }
-
+                                
+                                //Checks that the input is a coordinate and then stores it
+                                if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1 && Integer.parseInt(input.substring(1)) <= 10){
+                                    startPoint = input;
+                                    System.out.println("Pick an Ending Point for the piece: ");
+                                    try{
+                                        input = buffer.readLine().trim().toLowerCase();
+                                    }catch(IOException e){
+                                        System.out.println("\nPlease put in a proper action\n");
+                                    }
+    
+                                    //Checks that the second input is a coordinate and stores it
+                                    if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1 && Integer.parseInt(input.substring(1)) <= 10){
+                                        endPoint = input;
+    
+                                        //With coordinates collected begins to check they are valid for placement
+                                        //If they pass, places the game piece in the given location
+                                       placed = BoardManager.placingCheck(playerBoard, startPoint, endPoint, pieceLengths[i]);
+    
+                                    }else{
+                                        System.out.println("\nPlease put in an acceptable response\n");
+                                    }
+    
                                 }else{
                                     System.out.println("\nPlease put in an acceptable response\n");
                                 }
-
-                            }else{
-                                System.out.println("\nPlease put in an acceptable response\n");
                             }
+                            //Feedback after placing piece
+                            System.out.println("Piece was placed!\n");
+                            BoardManager.printBoard(playerBoard);
                         }
                     }else if(input.equals("hit")){
 
@@ -109,8 +112,8 @@ class Game {
                             //Also checks that input is an acceptable format
                             if(input.equals("back")){
                                 goBack = true;
-                            }else if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1){
-                                BoardManager.markBoard(playerBoard, input, false);
+                            }else if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1 && Integer.parseInt(input.substring(1)) <= 10){
+                                BoardManager.hitBoard(playerBoard, input);
                                 BoardManager.printBoard(playerBoard);
                             }else{
                                 System.out.println("\nPlease put in an acceptable response\n");

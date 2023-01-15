@@ -27,26 +27,34 @@ class BoardManager {
         System.out.println("\n_|_________________________________\n    1  2  3  4  5  6  7  8  9  10");
     }
 
-    //Takes the targeted board and marks it with given coordinates
-    public static void markBoard(String[][] board, String coords, boolean placing){
+    //Takes the targeted board and marks(hits) given coordinates
+    public static void hitBoard(String[][] board, String coords){
         int firstCoords = letterToNum(coords);
         int secondCoords = Integer.parseInt(coords.substring(1)) - 1; //Subtracts one to account for arrays starting at 0
 
         //DEBUGGING USE
         System.out.println(firstCoords + " " + secondCoords);
 
-        //If in placing mode, uses correct marker
-        //If not, assumes hitting
-        if(placing){
-            board[firstCoords][secondCoords] = "O";
-        }else{
-            board[firstCoords][secondCoords] = "X";
-        }
+        board[firstCoords][secondCoords] = "X";
     }
 
-    //Lets the player select where they plan on putting pieces
-    public static void placePieces(String[][] board, String coords1, String coords2, int length){
-        boolean valid = placingCheck(board, coords1, coords2, length);
+    //Takes the given coordinates and places the pieces based on orientation
+    public static void placePieces(String[][] board, int sameCoord, int startCoord, int endCoord, int length, boolean vertical){
+    
+        //Vertical otherwise horizontal
+        if(vertical)
+        {
+            for(int i = startCoord; i <= endCoord; i++)
+            {
+                board[i][sameCoord] = "0";
+            }
+        }else{
+            for(int i = startCoord; i <= endCoord; i++)
+            {
+                board[sameCoord][i] = "0";
+            }
+        }
+        
     }
     //Helper method to check all conditions before a piece can be placed
     public static boolean placingCheck(String[][] board, String coords1, String coords2, int length){
@@ -70,7 +78,7 @@ class BoardManager {
         if(letter1 == letter2){
             
             //Second Checks that coords given will match with length of piece
-            int distance = Math.abs((number1 - number2));
+            int distance = Math.abs((number1 - number2)) + 1;
             if(distance != length){
                 System.out.println("The coordinates given do no match the length of the piece.\n Please give new coordinates.");
                 return false;
@@ -84,12 +92,14 @@ class BoardManager {
                 }
             }
 
+            //Once checks are passed, places the piece (Horizontal)
+            placePieces(board, letter1, smallNumber, bigNumber, length, false);
             return true;
 
         }else if (number1 == number2){
 
             //Second Checks that coords given will match with length of piece
-            int distance = Math.abs((letter1 - letter2));
+            int distance = Math.abs((letter1 - letter2)) + 1;
             if(distance != length){
                 System.out.println("The coordinates given do not match the length of the piece.\n Please give new coordinates.");
                 return false;
@@ -103,6 +113,8 @@ class BoardManager {
                 }
             }
 
+            //Once checks are passed, places the piece (Vertical)
+            placePieces(board, number1, smallLetter, bigLetter, length, true);
             return true;
 
         }else{
