@@ -32,10 +32,13 @@ class BoardManager {
         int firstCoords = letterToNum(coords);
         int secondCoords = Integer.parseInt(coords.substring(1)) - 1; //Subtracts one to account for arrays starting at 0
 
-        //DEBUGGING USE
-        System.out.println(firstCoords + " " + secondCoords);
-
-        board[firstCoords][secondCoords] = "X";
+        if(board[firstCoords][secondCoords] == "O"){
+            System.out.println("You HIT a game piece!");
+            board[firstCoords][secondCoords] = "X";
+        }else{
+            System.out.println("You missed!");
+            board[firstCoords][secondCoords] = "X";
+        }
     }
 
     //Takes the given coordinates and places the pieces based on orientation
@@ -46,12 +49,12 @@ class BoardManager {
         {
             for(int i = startCoord; i <= endCoord; i++)
             {
-                board[i][sameCoord] = "0";
+                board[i][sameCoord] = "O";
             }
         }else{
             for(int i = startCoord; i <= endCoord; i++)
             {
-                board[sameCoord][i] = "0";
+                board[sameCoord][i] = "O";
             }
         }
         
@@ -78,6 +81,7 @@ class BoardManager {
         if(letter1 == letter2){
             
             //Second Checks that coords given will match with length of piece
+            //Adds 1 to be inclusive of both start/end points
             int distance = Math.abs((number1 - number2)) + 1;
             if(distance != length){
                 System.out.println("The coordinates given do no match the length of the piece.\n Please give new coordinates.");
@@ -99,6 +103,7 @@ class BoardManager {
         }else if (number1 == number2){
 
             //Second Checks that coords given will match with length of piece
+            //Adds 1 to be inclusive of both start/end points
             int distance = Math.abs((letter1 - letter2)) + 1;
             if(distance != length){
                 System.out.println("The coordinates given do not match the length of the piece.\n Please give new coordinates.");
@@ -122,7 +127,6 @@ class BoardManager {
             return false;
         }
     }
-
 
     //Method to check for valid coordinates
     public static boolean coordinateCheck(String coords){
