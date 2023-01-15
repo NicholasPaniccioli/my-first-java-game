@@ -68,7 +68,7 @@ class Game {
                                 }
                                 
                                 //Checks that the input is a coordinate and then stores it
-                                if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1 && Integer.parseInt(input.substring(1)) <= 10){
+                                if(BoardManager.coordinateCheck(input)){
                                     startPoint = input;
                                     System.out.println("Pick an Ending Point for the piece: ");
                                     try{
@@ -78,7 +78,7 @@ class Game {
                                     }
     
                                     //Checks that the second input is a coordinate and stores it
-                                    if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1 && Integer.parseInt(input.substring(1)) <= 10){
+                                    if(BoardManager.coordinateCheck(input)){
                                         endPoint = input;
     
                                         //With coordinates collected begins to check they are valid for placement
@@ -112,7 +112,7 @@ class Game {
                             //Also checks that input is an acceptable format
                             if(input.equals("back")){
                                 goBack = true;
-                            }else if(input.length() <= 3 && input.length() > 0 && BoardManager.letterToNum(input) != -1 && Integer.parseInt(input.substring(1)) <= 10){
+                            }else if(BoardManager.coordinateCheck(input)){
                                 BoardManager.hitBoard(playerBoard, input);
                                 BoardManager.printBoard(playerBoard);
                             }else{

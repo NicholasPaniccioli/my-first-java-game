@@ -123,6 +123,24 @@ class BoardManager {
         }
     }
 
+
+    //Method to check for valid coordinates
+    public static boolean coordinateCheck(String coords){
+        if(coords.length() <= 3 && coords.length() > 0 && letterToNum(coords) != -1){
+            try{
+                int value = Integer.parseInt(coords.substring(1));
+                if(value <= 10){
+                    return true;
+                }
+            }
+            catch(NumberFormatException e){
+                System.out.println("Input given was not the correct format ");
+                return false;
+            }
+        }
+        return false;
+    }
+
     //Checks the letter given by the player and gives the corresponding number
     public static int letterToNum(String coords){
         switch(coords.charAt(0)){
