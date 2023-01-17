@@ -24,7 +24,6 @@ class BoardManager {
                 System.out.print(" " + board[x][y] + " "); 
             }
         }
-        System.out.println("\n_|_________________________________\n    1  2  3  4  5  6  7  8  9  10");
         System.out.println("\n\t_|_________________________________\n\t    1  2  3  4  5  6  7  8  9  10");
     }
 
