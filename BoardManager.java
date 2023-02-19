@@ -19,13 +19,13 @@ class BoardManager {
     public static void printBoard(String[][] board){
 
         for(int x = 0; x < board.length; x++){
-            System.out.print("\n"+ letters[x] + "| ");
+            System.out.print("\n\t"+ letters[x] + "| ");
             for(int y = 0; y < board[0].length; y++ )
             {
                 System.out.print(" " + board[x][y] + " "); 
             }
         }
-        System.out.println("\n_|_________________________________\n    1  2  3  4  5  6  7  8  9  10");
+        System.out.println("\n\t_|_________________________________\n\t    1  2  3  4  5  6  7  8  9  10");
     }
 
     //Takes the targeted board and marks(hits) given coordinates
@@ -34,10 +34,10 @@ class BoardManager {
         int secondCoords = Integer.parseInt(coords.substring(1)) - 1; //Subtracts one to account for arrays starting at 0
 
         if(board[firstCoords][secondCoords] == "O"){
-            System.out.println("You HIT a game piece!");
+            System.out.println("\n You HIT a game piece!");
             board[firstCoords][secondCoords] = "X";
         }else{
-            System.out.println("You missed!");
+            System.out.println("\n You missed!");
             board[firstCoords][secondCoords] = "X";
         }
     }
@@ -85,14 +85,14 @@ class BoardManager {
             //Adds 1 to be inclusive of both start/end points
             int distance = Math.abs((number1 - number2)) + 1;
             if(distance != length){
-                System.out.println("The coordinates given do no match the length of the piece.\n Please give new coordinates.");
+                System.out.println(" The coordinates given do no match the length of the piece.\n Please give new coordinates.");
                 return false;
             }
             
             //Third Checks that coords do not overlap another piece
             for(int i = smallNumber; i <= bigNumber; i++){
                 if(board[letter1][i] != "-"){
-                    System.out.println("The coordinates given overlap another piece.\n Please give new coordinates.");
+                    System.out.println(" The coordinates given overlap another piece.\n Please give new coordinates.");
                     return false;
                 }
             }
@@ -107,14 +107,14 @@ class BoardManager {
             //Adds 1 to be inclusive of both start/end points
             int distance = Math.abs((letter1 - letter2)) + 1;
             if(distance != length){
-                System.out.println("The coordinates given do not match the length of the piece.\n Please give new coordinates.");
+                System.out.println(" The coordinates given do not match the length of the piece.\n Please give new coordinates.");
                 return false;
             }
 
             //Third Checks that coords do not overlap another piece
             for(int i = smallLetter; i <= bigLetter; i++){
                 if(board[number1][i] != "-"){
-                    System.out.println("The coordinates given overlap another piece.\n Please give new coordinates.");
+                    System.out.println(" The coordinates given overlap another piece.\n Please give new coordinates.");
                     return false;
                 }
             }
@@ -124,7 +124,7 @@ class BoardManager {
             return true;
 
         }else{
-            System.out.println("The coordinate given do not place the piece in one row or column.\n Please give new coordinates.");
+            System.out.println(" The coordinate given do not place the piece in one row or column.\n Please give new coordinates.");
             return false;
         }
     }
@@ -193,7 +193,7 @@ class BoardManager {
                 }
             }
             catch(NumberFormatException e){
-                System.out.println("Input given was not the correct format ");
+                System.out.println(" Input given was not the correct format ");
                 return false;
             }
         }
