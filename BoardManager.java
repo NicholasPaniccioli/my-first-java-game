@@ -1,3 +1,4 @@
+import java.io.*;
 class BoardManager {
     public static String[][] board = new String[10][10]; //[Letters][Numbers]
     public static String[] letters = {"A","B","C","D","E","F","G","H","I","J"};
@@ -125,6 +126,60 @@ class BoardManager {
         }else{
             System.out.println("The coordinate given do not place the piece in one row or column.\n Please give new coordinates.");
             return false;
+        }
+    }
+
+    public static void placingQuestions(String[][] playerBoard){
+        String startPoint;
+        String endPoint;
+
+        int[] pieceLengths = {5,4,3,3,2};
+
+        //To get help get input from the console/player
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader buffer = new BufferedReader(isr);
+        String input = "";
+                        
+        for(int i = 0; i < 5; i++){
+           boolean placed = false;
+
+            while(!placed){
+                System.out.println("Pick a Starting Point for a piece that's " + pieceLengths[i] + " spaces in length: ");
+                try{
+                    input = buffer.readLine().trim().toLowerCase();
+                }catch(IOException e){
+                    System.out.println("\nPlease put in a proper action\n");
+                }
+                                
+                 //Checks that the input is a coordinate and then stores it
+                if(coordinateCheck(input)){
+                    startPoint = input;
+                    System.out.println("Pick an Ending Point for the piece: ");
+                    try{
+                        input = buffer.readLine().trim().toLowerCase();
+                    }catch(IOException e){
+                        System.out.println("\nPlease put in a proper action\n");
+                    }
+    
+                    //Checks that the second input is a coordinate and stores it
+                    if(coordinateCheck(input)){
+                        endPoint = input;
+    
+                        //With coordinates collected begins to check they are valid for placement
+                        //If they pass, places the game piece in the given location
+                        placed = placingCheck(playerBoard, startPoint, endPoint, pieceLengths[i]);
+    
+                    }else{
+                        System.out.println("\nPlease put in an acceptable response\n");
+                    }
+    
+                }else{
+                    System.out.println("\nPlease put in an acceptable response\n");
+                }
+            }
+            //Feedback after placing piece
+            System.out.println("Piece was placed!\n");
+            printBoard(playerBoard);
         }
     }
 
