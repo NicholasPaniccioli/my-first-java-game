@@ -1,4 +1,7 @@
 import java.io.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 class BoardManager {
     public static String[][] board = new String[10][10]; //[Letters][Numbers]
     public static String[] letters = {"A","B","C","D","E","F","G","H","I","J"};
@@ -43,25 +46,35 @@ class BoardManager {
     }
 
     //Takes the given coordinates and places the pieces based on orientation
-    public static void placePieces(String[][] board, int sameCoord, int startCoord, int endCoord, int length, boolean vertical){
+    public static void placePieces(String[][] board, int sameCoord, int startCoord, int endCoord, int length, boolean vertical, String name){
     
+        Piece newPiece = new Piece(name);
+        List<String> locationList = new ArrayList<String>(Arrays.asList(newPiece.locations));
+
         //Vertical otherwise horizontal
         if(vertical)
         {
             for(int i = startCoord; i <= endCoord; i++)
             {
                 board[i][sameCoord] = "O";
+                String full = Integer.toString(i).concat(Integer.toString(sameCoord));
+                locationList.add(full);
+                newPiece.locations = locationList.toArray(newPiece.locations);
             }
         }else{
             for(int i = startCoord; i <= endCoord; i++)
             {
                 board[sameCoord][i] = "O";
+                String full = Integer.toString(sameCoord).concat(Integer.toString(i));
+                locationList.add(full);
+                newPiece.locations = locationList.toArray(newPiece.locations);
             }
         }
-        
+
+        System.out.println(newPiece.toString());
     }
     //Helper method to check all conditions before a piece can be placed
-    public static boolean placingCheck(String[][] board, String coords1, String coords2, int length){
+    public static boolean placingCheck(String[][] board, String coords1, String coords2, int length, String name){
 
         //Coordinates for the 1st Set
         int letter1 = letterToNum(coords1);
@@ -98,7 +111,7 @@ class BoardManager {
             }
 
             //Once checks are passed, places the piece (Horizontal)
-            placePieces(board, letter1, smallNumber, bigNumber, length, false);
+            placePieces(board, letter1, smallNumber, bigNumber, length, false, name);
             return true;
 
         }else if (number1 == number2){
@@ -120,7 +133,7 @@ class BoardManager {
             }
 
             //Once checks are passed, places the piece (Vertical)
-            placePieces(board, number1, smallLetter, bigLetter, length, true);
+            placePieces(board, number1, smallLetter, bigLetter, length, true, name);
             return true;
 
         }else{
@@ -134,6 +147,7 @@ class BoardManager {
         String endPoint;
 
         int[] pieceLengths = {5,4,3,3,2};
+        String[] pieceNames = {"Man-o-War","Barge","Dauntless","Pirate","Dingy"};
 
         //To get help get input from the console/player
         InputStreamReader isr = new InputStreamReader(System.in);
@@ -144,7 +158,7 @@ class BoardManager {
            boolean placed = false;
 
             while(!placed){
-                System.out.println("Pick a Starting Point for a piece that's " + pieceLengths[i] + " spaces in length: ");
+                System.out.println("Pick a Starting Point for the " + pieceNames[i] + " piece that's " + pieceLengths[i] + " spaces in length: ");
                 try{
                     input = buffer.readLine().trim().toLowerCase();
                 }catch(IOException e){
@@ -167,7 +181,7 @@ class BoardManager {
     
                         //With coordinates collected begins to check they are valid for placement
                         //If they pass, places the game piece in the given location
-                        placed = placingCheck(playerBoard, startPoint, endPoint, pieceLengths[i]);
+                        placed = placingCheck(playerBoard, startPoint, endPoint, pieceLengths[i], pieceNames[i]);
     
                     }else{
                         System.out.println("\nPlease put in an acceptable response\n");
@@ -188,7 +202,7 @@ class BoardManager {
         if(coords.length() <= 3 && coords.length() > 0 && letterToNum(coords) != -1){
             try{
                 int value = Integer.parseInt(coords.substring(1));
-                if(value <= 10){
+                if(value <= 10 && value > 0){
                     return true;
                 }
             }

@@ -49,7 +49,6 @@ class Game {
                     }
 
                     if(input.equals("place")){
-                        //If they are placing needs to refresh board to make new space.
                         System.out.println("Resetting board!");
                         playerBoard = BoardManager.createBoard();
                         System.out.println("Board was reset!");
