@@ -6,8 +6,6 @@ class Game {
         boolean quitGame = false;
         boolean goBack = false;
 
-        int[] pieceLengths = {5,4,3,3,2};
-
         //To get help get input from the console/player
         InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader buffer = new BufferedReader(isr);
@@ -49,9 +47,10 @@ class Game {
                     }
 
                     if(input.equals("place")){
-                        System.out.println("Resetting board!");
+                        System.out.println("Resetting board & Game Pieces!");
                         playerBoard = BoardManager.createBoard();
-                        System.out.println("Board was reset!");
+                        BoardManager.pieceList.clear();
+                        System.out.println("Board & Pieces were reset!");
 
                         BoardManager.placingQuestions(playerBoard);
 

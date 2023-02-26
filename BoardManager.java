@@ -6,6 +6,9 @@ class BoardManager {
     public static String[][] board = new String[10][10]; //[Letters][Numbers]
     public static String[] letters = {"A","B","C","D","E","F","G","H","I","J"};
 
+    public static Piece[] gamePieces = new Piece[0];
+    public static List<Piece> pieceList = new ArrayList<Piece>(Arrays.asList(gamePieces));
+
     //Creates a 10x10 grid to be used for the game
     public static String[][] createBoard(){
 
@@ -48,6 +51,7 @@ class BoardManager {
     //Takes the given coordinates and places the pieces based on orientation
     public static void placePieces(String[][] board, int sameCoord, int startCoord, int endCoord, int length, boolean vertical, String name){
     
+        //Creates a new piece to store the points it covers
         Piece newPiece = new Piece(name);
         List<String> locationList = new ArrayList<String>(Arrays.asList(newPiece.locations));
 
@@ -71,6 +75,7 @@ class BoardManager {
             }
         }
 
+        pieceList.add(newPiece);
         System.out.println(newPiece.toString());
     }
     //Helper method to check all conditions before a piece can be placed
@@ -194,6 +199,10 @@ class BoardManager {
             //Feedback after placing piece
             System.out.println("Piece was placed!\n");
             printBoard(playerBoard);
+        }
+        gamePieces = pieceList.toArray(gamePieces);
+        for(int i =0; i < gamePieces.length; i++){
+            System.out.println(gamePieces[i].name);
         }
     }
 
