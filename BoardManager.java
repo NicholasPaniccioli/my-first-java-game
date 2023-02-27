@@ -39,13 +39,29 @@ class BoardManager {
         int firstCoords = letterToNum(coords);
         int secondCoords = Integer.parseInt(coords.substring(1)) - 1; //Subtracts one to account for arrays starting at 0
 
-        if(board[firstCoords][secondCoords] == "O"){
-            System.out.println("\n You HIT a game piece!");
-            board[firstCoords][secondCoords] = "X";
-        }else{
-            System.out.println("\n You missed!");
-            board[firstCoords][secondCoords] = "X";
+        //Loops thorugh each gamepiece and their respective location
+        //To match coordinates and either hit a piece or an empty spot
+        for( Piece i : gamePieces){
+            for(String x : i.locations)
+            {
+                if(coords.equals(x)){
+                    i.takesHit();   
+                } else{
+                    System.out.println("\n You missed!L: P:" + x + i.name);
+                    board[firstCoords][secondCoords] = "X";
+                }
+            }
         }
+
+        //NEEDS WORK
+
+        // if(board[firstCoords][secondCoords] == "O"){
+        //     System.out.println("\n You HIT a game piece!");
+        //     board[firstCoords][secondCoords] = "X";
+        // }else{
+        //     System.out.println("\n You missed!");
+        //     board[firstCoords][secondCoords] = "X";
+        // }
     }
 
     //Takes the given coordinates and places the pieces based on orientation
