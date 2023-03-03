@@ -39,29 +39,19 @@ class BoardManager {
         int firstCoords = letterToNum(coords);
         int secondCoords = Integer.parseInt(coords.substring(1)) - 1; //Subtracts one to account for arrays starting at 0
 
-        //Loops thorugh each gamepiece and their respective location
+        //Loops through each gamepiece and their respective location
         //To match coordinates and either hit a piece or an empty spot
-        for( Piece i : gamePieces){
+        for(Piece i : gamePieces){
             for(String x : i.locations)
             {
                 if(coords.equals(x)){
                     i.takesHit();   
                 } else{
-                    System.out.println("\n You missed!L: P:" + x + i.name);
+                    //System.out.println("\n You missed!L:" + x + " P:" + i.name + " C: " + coords);
                     board[firstCoords][secondCoords] = "X";
                 }
             }
         }
-
-        //NEEDS WORK
-
-        // if(board[firstCoords][secondCoords] == "O"){
-        //     System.out.println("\n You HIT a game piece!");
-        //     board[firstCoords][secondCoords] = "X";
-        // }else{
-        //     System.out.println("\n You missed!");
-        //     board[firstCoords][secondCoords] = "X";
-        // }
     }
 
     //Takes the given coordinates and places the pieces based on orientation
@@ -77,7 +67,8 @@ class BoardManager {
             for(int i = startCoord; i <= endCoord; i++)
             {
                 board[i][sameCoord] = "O";
-                String full = Integer.toString(i).concat(Integer.toString(sameCoord));
+                String converted = numToLetter(i); //Converts the first coord back to letter
+                String full = converted.concat(Integer.toString(sameCoord+1)); //Adds 1 to account for starting at 0
                 locationList.add(full);
                 newPiece.locations = locationList.toArray(newPiece.locations);
             }
@@ -85,14 +76,15 @@ class BoardManager {
             for(int i = startCoord; i <= endCoord; i++)
             {
                 board[sameCoord][i] = "O";
-                String full = Integer.toString(sameCoord).concat(Integer.toString(i));
+                String converted = numToLetter(sameCoord); //Converts the first coord back to letter
+                String full = converted.concat(Integer.toString(i+1)); //Adds 1 to account for starting at 0
                 locationList.add(full);
                 newPiece.locations = locationList.toArray(newPiece.locations);
             }
         }
 
         pieceList.add(newPiece);
-        System.out.println(newPiece.toString());
+        //System.out.println(newPiece.toString());
     }
     //Helper method to check all conditions before a piece can be placed
     public static boolean placingCheck(String[][] board, String coords1, String coords2, int length, String name){
@@ -264,6 +256,34 @@ class BoardManager {
                 return 9;
             default:
                 return -1;
+        }
+    }
+
+    //Takes a number and returns a coressponding letter
+    public static String numToLetter(int num){
+        switch(num){
+            case 0:
+                return "a";
+            case 1:
+                return "b";
+            case 2:
+                return "c";
+            case 3:
+                return "d";
+            case 4:
+                return "e";
+            case 5:
+                return "f";
+            case 6:
+                return "g";
+            case 7:
+                return "h";
+            case 8:
+                return "i";
+            case 9:
+                return "j";
+            default:
+                return "x";
         }
     }
 

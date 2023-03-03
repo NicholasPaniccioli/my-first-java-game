@@ -13,7 +13,7 @@ class Piece{
     //Used to detect if the piece was hit and if it was the last point
     public void takesHit(){
 
-        System.out.println("You hit the " + name);
+        System.out.println("\tYou hit the " + name + "!");
         //Do Coords match any in pieces location?
         //If so send message that a piece was hit
         //If so and was the last spot, special message "You destroyed the NAME"
