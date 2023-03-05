@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 class BoardManager {
     public static String[] letters = {"A","B","C","D","E","F","G","H","I","J"};
+    public static String border = "_|_________________________________";
+    public static String numberAxis = "    1  2  3  4  5  6  7  8  9  10";
 
     public static Piece[] gamePieces = new Piece[0];
     public static List<Piece> pieceList = new ArrayList<Piece>(Arrays.asList(gamePieces));
@@ -30,11 +32,27 @@ class BoardManager {
                 System.out.print(" " + board[x][y] + " "); 
             }
         }
-        System.out.println("\n\t_|_________________________________\n\t    1  2  3  4  5  6  7  8  9  10");
+        System.out.println("\n\t"+border+"\n\t"+numberAxis);
     }
-    public static void printBoard(String[][] board1, String[][] board2){
-        printBoard(board1);
-        printBoard(board2);
+
+    //Prints out two boards side to side for better viewing
+    public static void printBoards(String[][] board, String[][] board2){
+
+        System.out.println("\tPLAYER BOARD: \t\t\t\t\t CPU BOARD: " );
+        for(int x = 0; x < board.length; x++){
+            System.out.print("\n\t"+ letters[x] + "| ");
+            for(int y = 0; y < board[0].length; y++ )
+            {
+                System.out.print(" " + board[x][y] + " "); 
+            }
+            System.out.print("\t");
+            System.out.print("\t"+ letters[x] + "| ");
+            for(int y = 0; y < board2[0].length; y++ )
+            {
+                System.out.print(" " + board2[x][y] + " "); 
+            }
+        }
+        System.out.println("\n\t"+border+"\t\t"+border+"\n\t"+numberAxis+"\t\t"+numberAxis);
     }
 
     //Takes the targeted board and marks(hits) given coordinates
@@ -212,8 +230,8 @@ class BoardManager {
                 }
             }
             //Feedback after placing piece
-            System.out.println("Piece was placed!");
-            printBoard(playerBoard,cpuBoard);
+            System.out.println("Piece was placed!\n");
+            printBoards(playerBoard,cpuBoard);
         }
         gamePieces = pieceList.toArray(gamePieces);
     }

@@ -37,7 +37,7 @@ class Game {
                 System.out.println("\n New boards created:");
                 playerBoard = BoardManager.createBoard(playerBoard);
                 cpuBoard = BoardManager.createBoard(cpuBoard);
-                BoardManager.printBoard(playerBoard,cpuBoard);
+                BoardManager.printBoards(playerBoard,cpuBoard);
 
                 //Loops so the player can continue to play until they quit
                 while(!quitGame){
@@ -76,7 +76,7 @@ class Game {
                                 goBack = true;
                             }else if(BoardManager.coordinateCheck(input)){
                                 BoardManager.hitBoard(cpuBoard, input);
-                                BoardManager.printBoard(playerBoard,cpuBoard);
+                                BoardManager.printBoards(playerBoard,cpuBoard);
                             }else{
                                 System.out.println("\n Please put in an acceptable response\n");
                             }
