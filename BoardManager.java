@@ -3,14 +3,13 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 class BoardManager {
-    public static String[][] board = new String[10][10]; //[Letters][Numbers]
     public static String[] letters = {"A","B","C","D","E","F","G","H","I","J"};
 
     public static Piece[] gamePieces = new Piece[0];
     public static List<Piece> pieceList = new ArrayList<Piece>(Arrays.asList(gamePieces));
 
     //Creates a 10x10 grid to be used for the game
-    public static String[][] createBoard(){
+    public static String[][] createBoard(String[][] board){
 
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board[0].length; j++ ){
@@ -32,6 +31,10 @@ class BoardManager {
             }
         }
         System.out.println("\n\t_|_________________________________\n\t    1  2  3  4  5  6  7  8  9  10");
+    }
+    public static void printBoard(String[][] board1, String[][] board2){
+        printBoard(board1);
+        printBoard(board2);
     }
 
     //Takes the targeted board and marks(hits) given coordinates
@@ -89,7 +92,6 @@ class BoardManager {
         }
 
         pieceList.add(newPiece);
-        //System.out.println(newPiece.toString());
     }
     //Helper method to check all conditions before a piece can be placed
     public static boolean placingCheck(String[][] board, String coords1, String coords2, int length, String name){
@@ -160,7 +162,7 @@ class BoardManager {
         }
     }
 
-    public static void placingQuestions(String[][] playerBoard){
+    public static void placingQuestions(String[][] playerBoard, String[][] cpuBoard){
         String startPoint;
         String endPoint;
 
@@ -210,13 +212,10 @@ class BoardManager {
                 }
             }
             //Feedback after placing piece
-            System.out.println("Piece was placed!\n");
-            printBoard(playerBoard);
+            System.out.println("Piece was placed!");
+            printBoard(playerBoard,cpuBoard);
         }
         gamePieces = pieceList.toArray(gamePieces);
-        for(int i =0; i < gamePieces.length; i++){
-            System.out.println(gamePieces[i].name);
-        }
     }
 
     //Method to check for valid coordinates

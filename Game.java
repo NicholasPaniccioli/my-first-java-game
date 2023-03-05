@@ -16,6 +16,9 @@ class Game {
         String markQuestion = "\n Would you like to PLACE a piece, HIT a space, or QUIT the game: ";
         String hitQuestion = " Pick a Spot to Hit or go BACK: ";
         
+        String[][] playerBoard = new String[10][10];
+        String[][] cpuBoard = new String[10][10];
+
         //Beginning of the Program asks for user input
         System.out.print(intro + question);
         //Loops until the player quits the program
@@ -31,9 +34,10 @@ class Game {
             //Checks input for play or quit, and gives appropriate action
             if(input.equals("play")){
                 
-                System.out.println("\n New board created:");
-                String[][] playerBoard = BoardManager.createBoard();
-                BoardManager.printBoard(playerBoard);
+                System.out.println("\n New boards created:");
+                playerBoard = BoardManager.createBoard(playerBoard);
+                cpuBoard = BoardManager.createBoard(cpuBoard);
+                BoardManager.printBoard(playerBoard,cpuBoard);
 
                 //Loops so the player can continue to play until they quit
                 while(!quitGame){
@@ -48,11 +52,12 @@ class Game {
 
                     if(input.equals("place")){
                         System.out.println("Resetting board & Game Pieces!");
-                        playerBoard = BoardManager.createBoard();
+                        playerBoard = BoardManager.createBoard(playerBoard);
+                        cpuBoard = BoardManager.createBoard(cpuBoard);
                         BoardManager.pieceList.clear();
-                        System.out.println("Board & Pieces were reset!");
+                        System.out.println("Board & Pieces were reset!\n");
 
-                        BoardManager.placingQuestions(playerBoard);
+                        BoardManager.placingQuestions(playerBoard, cpuBoard);
 
                     }else if(input.equals("hit")){
 
@@ -70,8 +75,8 @@ class Game {
                             if(input.equals("back")){
                                 goBack = true;
                             }else if(BoardManager.coordinateCheck(input)){
-                                BoardManager.hitBoard(playerBoard, input);
-                                BoardManager.printBoard(playerBoard);
+                                BoardManager.hitBoard(cpuBoard, input);
+                                BoardManager.printBoard(playerBoard,cpuBoard);
                             }else{
                                 System.out.println("\n Please put in an acceptable response\n");
                             }
