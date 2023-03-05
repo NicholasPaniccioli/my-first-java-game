@@ -1,23 +1,27 @@
 class Piece{
     String[] locations = {};
     String name;
+    int health;
 
     public Piece(){
         name = "UNDEFINED";
     }
 
-    public Piece(String name){
+    public Piece(String name, int health){
         this.name = name;
+        this.health = health;
     }
 
     //Used to detect if the piece was hit and if it was the last point
     public void takesHit(){
 
-        System.out.println("\tYou hit the " + name + "!");
-        //Do Coords match any in pieces location?
-        //If so send message that a piece was hit
-        //If so and was the last spot, special message "You destroyed the NAME"
-        //If not nothing returns and miss message will be sent
+        if(health > 1){
+            System.out.println("\tYou hit the " + name + "!");
+            health--;
+        }else if (health == 1){
+            System.out.println("\tYou sunk the " + name + "!");
+            health = 0;
+        }
     }
 
     //Returns the name of the piece and what points on the board it covers

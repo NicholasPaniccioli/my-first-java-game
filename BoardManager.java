@@ -44,21 +44,26 @@ class BoardManager {
         for(Piece i : gamePieces){
             for(String x : i.locations)
             {
-                if(coords.equals(x)){
-                    i.takesHit();   
-                } else{
-                    //System.out.println("\n You missed!L:" + x + " P:" + i.name + " C: " + coords);
+                if(coords.equals(x) && board[firstCoords][secondCoords] != "X"){
+                    i.takesHit();
                     board[firstCoords][secondCoords] = "X";
+                    return;
+                }else if(board[firstCoords][secondCoords].equals("X")){
+                    System.out.println("\n You already shot here, pick another spot.");
+                    return;
                 }
             }
         }
+
+        System.out.println("\n You missed!");
+        board[firstCoords][secondCoords] = "X";
     }
 
     //Takes the given coordinates and places the pieces based on orientation
     public static void placePieces(String[][] board, int sameCoord, int startCoord, int endCoord, int length, boolean vertical, String name){
     
         //Creates a new piece to store the points it covers
-        Piece newPiece = new Piece(name);
+        Piece newPiece = new Piece(name,length);
         List<String> locationList = new ArrayList<String>(Arrays.asList(newPiece.locations));
 
         //Vertical otherwise horizontal
