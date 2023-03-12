@@ -61,6 +61,7 @@ class BoardManager {
         //Loops through each gamepiece and their respective location
         //To match coordinates and either hit a piece or an empty spot
         if(player == true){
+            for(Piece i : PieceManager.cpuPieces){
                 for(String x : i.locations)
                 {
                     if(coords.equals(x) && board[firstCoords][secondCoords] != "X"){
