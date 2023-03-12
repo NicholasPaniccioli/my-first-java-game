@@ -7,12 +7,6 @@ class BoardManager {
     public static String border = "_|_________________________________";
     public static String numberAxis = "    1  2  3  4  5  6  7  8  9  10";
 
-    public static Piece[] playerPieces = new Piece[0];
-    public static List<Piece> pieceList = new ArrayList<Piece>(Arrays.asList(playerPieces));
-
-    public static Piece[] cpuPieces = new Piece[0];
-    public static List<Piece> cpuPieceList = new ArrayList<Piece>(Arrays.asList(cpuPieces));
-
     //Creates a 10x10 grid to be used for the game
     public static String[][] createBoard(String[][] board){
 
@@ -67,7 +61,6 @@ class BoardManager {
         //Loops through each gamepiece and their respective location
         //To match coordinates and either hit a piece or an empty spot
         if(player == true){
-            for(Piece i : cpuPieces){
                 for(String x : i.locations)
                 {
                     if(coords.equals(x) && board[firstCoords][secondCoords] != "X"){
@@ -81,7 +74,7 @@ class BoardManager {
                 }
             }
         }else if (player != true){
-            for(Piece i : playerPieces){
+            for(Piece i : PieceManager.playerPieces){
                 for(String x : i.locations)
                 {
                     if(coords.equals(x) && board[firstCoords][secondCoords] != "X"){
@@ -129,7 +122,7 @@ class BoardManager {
             }
         }
 
-        pieceList.add(newPiece);
+        PieceManager.pieceList.add(newPiece);
     }
     //Helper method to check all conditions before a piece can be placed
     public static boolean placingCheck(String[][] board, String coords1, String coords2, int length, String name){
@@ -253,7 +246,7 @@ class BoardManager {
             System.out.println("Piece was placed!\n");
             printBoards(playerBoard,cpuBoard);
         }
-        playerPieces = pieceList.toArray(playerPieces);
+        PieceManager.playerPieces = PieceManager.pieceList.toArray(PieceManager.playerPieces);
     }
 
     //Method to check for valid coordinates

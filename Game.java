@@ -54,7 +54,7 @@ class Game {
                         System.out.println("Resetting board & Game Pieces!");
                         playerBoard = BoardManager.createBoard(playerBoard);
                         cpuBoard = BoardManager.createBoard(cpuBoard);
-                        BoardManager.pieceList.clear();
+                        PieceManager.pieceList.clear();
                         System.out.println("Board & Pieces were reset!\n");
 
                         BoardManager.placingQuestions(playerBoard, cpuBoard);
