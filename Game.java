@@ -75,7 +75,7 @@ class Game {
                             if(input.equals("back")){
                                 goBack = true;
                             }else if(BoardManager.coordinateCheck(input)){
-                                BoardManager.hitBoard(cpuBoard, input);
+                                BoardManager.hitBoard(cpuBoard, input, true);
                                 BoardManager.printBoards(playerBoard,cpuBoard);
                             }else{
                                 System.out.println("\n Please put in an acceptable response\n");

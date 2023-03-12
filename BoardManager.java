@@ -7,8 +7,11 @@ class BoardManager {
     public static String border = "_|_________________________________";
     public static String numberAxis = "    1  2  3  4  5  6  7  8  9  10";
 
-    public static Piece[] gamePieces = new Piece[0];
-    public static List<Piece> pieceList = new ArrayList<Piece>(Arrays.asList(gamePieces));
+    public static Piece[] playerPieces = new Piece[0];
+    public static List<Piece> pieceList = new ArrayList<Piece>(Arrays.asList(playerPieces));
+
+    public static Piece[] cpuPieces = new Piece[0];
+    public static List<Piece> cpuPieceList = new ArrayList<Piece>(Arrays.asList(cpuPieces));
 
     //Creates a 10x10 grid to be used for the game
     public static String[][] createBoard(String[][] board){
@@ -56,22 +59,39 @@ class BoardManager {
     }
 
     //Takes the targeted board and marks(hits) given coordinates
-    public static void hitBoard(String[][] board, String coords){
+    public static void hitBoard(String[][] board, String coords, boolean player){
         int firstCoords = letterToNum(coords);
         int secondCoords = Integer.parseInt(coords.substring(1)) - 1; //Subtracts one to account for arrays starting at 0
 
+        //Checks which player is hitting who
         //Loops through each gamepiece and their respective location
         //To match coordinates and either hit a piece or an empty spot
-        for(Piece i : gamePieces){
-            for(String x : i.locations)
-            {
-                if(coords.equals(x) && board[firstCoords][secondCoords] != "X"){
-                    i.takesHit();
-                    board[firstCoords][secondCoords] = "X";
-                    return;
-                }else if(board[firstCoords][secondCoords].equals("X")){
-                    System.out.println("\n You already shot here, pick another spot.");
-                    return;
+        if(player == true){
+            for(Piece i : cpuPieces){
+                for(String x : i.locations)
+                {
+                    if(coords.equals(x) && board[firstCoords][secondCoords] != "X"){
+                        i.takesHit();
+                        board[firstCoords][secondCoords] = "X";
+                        return;
+                    }else if(board[firstCoords][secondCoords].equals("X")){
+                        System.out.println("\n You already shot here, pick another spot.");
+                        return;
+                    }
+                }
+            }
+        }else if (player != true){
+            for(Piece i : playerPieces){
+                for(String x : i.locations)
+                {
+                    if(coords.equals(x) && board[firstCoords][secondCoords] != "X"){
+                        i.takesHit();
+                        board[firstCoords][secondCoords] = "X";
+                        return;
+                    }else if(board[firstCoords][secondCoords].equals("X")){
+                        System.out.println("\n You already shot here, pick another spot.");
+                        return;
+                    }
                 }
             }
         }
@@ -233,7 +253,7 @@ class BoardManager {
             System.out.println("Piece was placed!\n");
             printBoards(playerBoard,cpuBoard);
         }
-        gamePieces = pieceList.toArray(gamePieces);
+        playerPieces = pieceList.toArray(playerPieces);
     }
 
     //Method to check for valid coordinates
