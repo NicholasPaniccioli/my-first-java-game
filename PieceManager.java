@@ -53,12 +53,12 @@ class PieceManager {
 
                     //Checks it made it through entire length of piece
                     //If no dispute, places the piece
-                    if(u == lengths[n])
+                    if(u == lengths[n]-1)
                     {
                         System.out.print("True in U");
                         placed = true;
                         String firstCoords = formatCoords(randY,randX);
-                        String secondCoords = formatCoords(randY-lengths[n],randX);
+                        String secondCoords = formatCoords(randY-u,randX);
                         BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n]);
                     }
                 }
@@ -69,12 +69,12 @@ class PieceManager {
                         break; //If there is a dispute for space, leaves the loop
                     }
 
-                    if(d == lengths[n])
+                    if(d == lengths[n]-1)
                     {
                         System.out.print("True in d");
                         placed = true;
                         String firstCoords = formatCoords(randY,randX);
-                        String secondCoords = formatCoords(randY+lengths[n],randX);
+                        String secondCoords = formatCoords(randY+d,randX);
                         BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n]);
                     }
                 }
@@ -85,12 +85,12 @@ class PieceManager {
                         break; //If there is a dispute for space, leaves the loop
                     }
 
-                    if(r == lengths[n])
+                    if(r == lengths[n]-1)
                     {
                         System.out.print("True in r");
                         placed = true;
                         String firstCoords = formatCoords(randY,randX);
-                        String secondCoords = formatCoords(randY,randX+lengths[n]);
+                        String secondCoords = formatCoords(randY,randX+r);
                         BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n]);
                     }
                 }       
@@ -101,13 +101,13 @@ class PieceManager {
                         break; //If there is a dispute for space, leaves the loop
                     }
 
-                    if(l == lengths[n])
+                    if(l == lengths[n]-1)
                     {
                         System.out.print("True in l");
 
                         placed = true;
                         String firstCoords = formatCoords(randY,randX);
-                        String secondCoords = formatCoords(randY,randX-lengths[n]);
+                        String secondCoords = formatCoords(randY,randX-l);
                         BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n]);
                     }
                 }        
