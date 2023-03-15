@@ -106,6 +106,7 @@ class BoardManager {
         {
             for(int i = startCoord; i <= endCoord; i++)
             {
+                System.out.print("Point picked");
                 board[i][sameCoord] = "O";
                 String converted = numToLetter(i); //Converts the first coord back to letter
                 String full = converted.concat(Integer.toString(sameCoord+1)); //Adds 1 to account for starting at 0
@@ -115,6 +116,7 @@ class BoardManager {
         }else{
             for(int i = startCoord; i <= endCoord; i++)
             {
+                System.out.print("Point picked");
                 board[sameCoord][i] = "O";
                 String converted = numToLetter(sameCoord); //Converts the first coord back to letter
                 String full = converted.concat(Integer.toString(i+1)); //Adds 1 to account for starting at 0
