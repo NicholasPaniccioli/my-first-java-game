@@ -60,7 +60,7 @@ class PieceManager {
                             String firstCoords = formatCoords(randY,randX);
                             String secondCoords = formatCoords(randY-u,randX);
                             
-                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
+                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n], false)){
                                 System.out.print("True in u");
                                 placed = true;
                             }
@@ -84,7 +84,7 @@ class PieceManager {
                             String firstCoords = formatCoords(randY,randX);
                             String secondCoords = formatCoords(randY+d,randX);
                             
-                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
+                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n], false)){
                                 System.out.print("True in d");
                                 placed = true;
                             }
@@ -108,7 +108,7 @@ class PieceManager {
                             String firstCoords = formatCoords(randY,randX);
                             String secondCoords = formatCoords(randY,randX-r);
                             
-                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
+                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n], false)){
                                 System.out.print("True in r");
                                 placed = true;
                             }
@@ -132,7 +132,7 @@ class PieceManager {
                             String firstCoords = formatCoords(randY,randX);
                             String secondCoords = formatCoords(randY,randX-l);
                             
-                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
+                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n], false)){
                                 System.out.print("True in l");
                                 placed = true;
                             }

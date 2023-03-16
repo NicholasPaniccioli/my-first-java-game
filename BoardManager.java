@@ -95,7 +95,7 @@ class BoardManager {
     }
 
     //Takes the given coordinates and places the pieces based on orientation
-    public static void placePieces(String[][] board, int sameCoord, int startCoord, int endCoord, int length, boolean vertical, String name){
+    public static void placePieces(String[][] board, int sameCoord, int startCoord, int endCoord, int length, boolean vertical, String name, Boolean player){
     
         //Creates a new piece to store the points it covers
         Piece newPiece = new Piece(name,length);
@@ -125,10 +125,15 @@ class BoardManager {
             }
         }
 
-        PieceManager.pieceList.add(newPiece);
+        //Checks if it was a player or cpu created piece and adds to appropriate list
+        if(player){
+            PieceManager.pieceList.add(newPiece);
+        }else if(!player){
+            PieceManager.cpuPieceList.add(newPiece);
+        }
     }
     //Helper method to check all conditions before a piece can be placed
-    public static boolean placingCheck(String[][] board, String coords1, String coords2, int length, String name){
+    public static boolean placingCheck(String[][] board, String coords1, String coords2, int length, String name, boolean player){
 
         System.out.println("C1:" + coords1 + "C2:" + coords2);
         
@@ -169,7 +174,7 @@ class BoardManager {
             }
 
             //Once checks are passed, places the piece (Horizontal)
-            placePieces(board, letter1, smallNumber, bigNumber, length, false, name);
+            placePieces(board, letter1, smallNumber, bigNumber, length, false, name, player);
             return true;
 
         }else if (number1 == number2){
@@ -191,7 +196,7 @@ class BoardManager {
             }
 
             //Once checks are passed, places the piece (Vertical)
-            placePieces(board, number1, smallLetter, bigLetter, length, true, name);
+            placePieces(board, number1, smallLetter, bigLetter, length, true, name, player);
             return true;
 
         }else{
@@ -239,7 +244,7 @@ class BoardManager {
     
                         //With coordinates collected begins to check they are valid for placement
                         //If they pass, places the game piece in the given location
-                        placed = placingCheck(playerBoard, startPoint, endPoint, pieceLengths[i], pieceNames[i]);
+                        placed = placingCheck(playerBoard, startPoint, endPoint, pieceLengths[i], pieceNames[i], true);
     
                     }else{
                         System.out.println("\nPlease put in an acceptable response\n");
@@ -254,6 +259,7 @@ class BoardManager {
             printBoards(playerBoard,cpuBoard);
         }
         PieceManager.playerPieces = PieceManager.pieceList.toArray(PieceManager.playerPieces);
+        PieceManager.cpuPieces = PieceManager.cpuPieceList.toArray(PieceManager.cpuPieces);
     }
 
     //Method to check for valid coordinates
