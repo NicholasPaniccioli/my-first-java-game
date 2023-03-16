@@ -106,7 +106,7 @@ class BoardManager {
         {
             for(int i = startCoord; i <= endCoord; i++)
             {
-                System.out.print("Point picked");
+                System.out.print("Point picked. ");
                 board[i][sameCoord] = "O";
                 String converted = numToLetter(i); //Converts the first coord back to letter
                 String full = converted.concat(Integer.toString(sameCoord+1)); //Adds 1 to account for starting at 0
@@ -116,7 +116,7 @@ class BoardManager {
         }else{
             for(int i = startCoord; i <= endCoord; i++)
             {
-                System.out.print("Point picked");
+                System.out.print("Point picked. ");
                 board[sameCoord][i] = "O";
                 String converted = numToLetter(sameCoord); //Converts the first coord back to letter
                 String full = converted.concat(Integer.toString(i+1)); //Adds 1 to account for starting at 0
@@ -130,6 +130,8 @@ class BoardManager {
     //Helper method to check all conditions before a piece can be placed
     public static boolean placingCheck(String[][] board, String coords1, String coords2, int length, String name){
 
+        System.out.println("C1:" + coords1 + "C2:" + coords2);
+        
         //Coordinates for the 1st Set
         int letter1 = letterToNum(coords1);
         int number1 = Integer.parseInt(coords1.substring(1)) - 1;
@@ -144,6 +146,8 @@ class BoardManager {
 
         int bigNumber = biggerNumber(number1, number2);
         int smallNumber = smallerNumber(number1, number2);
+
+        System.out.println("L1:"+ letter1 + " L2:" + letter2 + " N1:" + number1 + " N2:" + number2);
 
         //First Checks that piece is not being placed diagonally
         if(letter1 == letter2){
@@ -180,7 +184,7 @@ class BoardManager {
 
             //Third Checks that coords do not overlap another piece
             for(int i = smallLetter; i <= bigLetter; i++){
-                if(board[number1][i] != "-"){
+                if(board[i][number1] != "-"){
                     System.out.println(" The coordinates given overlap another piece.\n Please give new coordinates.");
                     return false;
                 }

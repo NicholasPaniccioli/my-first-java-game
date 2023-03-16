@@ -27,12 +27,13 @@ class PieceManager {
         for(int n = 0; n < 5; n++){
 
             //Pick a Random spot on the board [0-9][0-9] Letter/Num
+            //Adds 1 to account for how board displays and respective logic works
             //Checks the spot isnt already in use 
             do{
                 randY = rand.nextInt(10);
-                randX = rand.nextInt(10);
+                randX = rand.nextInt(10) + 1;
                 System.out.println(randY +""+ randX);
-            }while(board[randY][randX].equals("O"));   
+            }while(board[randY][randX-1].equals("O"));   
 
             placed = false;
 
@@ -42,96 +43,111 @@ class PieceManager {
             //If it doesn't, goes to the next direction
             while(!placed){
                 //Check Up
-                for(int u = 0; u < lengths[n]; u++){
-                    System.out.print("Im in up need length of " + lengths[n]); 
-                    System.out.println("Checking u:" + u + "At " + Integer.toString(randY-u) + ""+ randX);
-                    if(board[randY-u][randX].equals("O") || placed == true || randY-lengths[n] < 0){
-                        System.out.println("Im leaving UP CHECK");
-                        break; //If there is a dispute for space, leaves the loop
-                    }
-                    
-
-                    //Checks it made it through entire length of piece
-                    //If no dispute, places the piece
-                    if(u == lengths[n]-1)
-                    {
-                        String firstCoords = formatCoords(randY,randX);
-                        String secondCoords = formatCoords(randY-u,randX);
+                if(!placed){
+                    for(int u = 0; u < lengths[n]; u++){
+                        System.out.println("Im in up, need length of " + lengths[n]); 
+                        System.out.println("Checking at " + formatCoords(randY-u,randX));
+                        if(board[randY-u][randX-1].equals("O") || randY-lengths[n] < 0){
+                            System.out.println("Im leaving UP CHECK");
+                            break; //If there is a dispute for space, leaves the loop
+                        }
                         
-                        if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
-                            System.out.print("True in u");
-                            placed = true;
+    
+                        //Checks it made it through entire length of piece
+                        //If no dispute, places the piece
+                        if(u == lengths[n]-1)
+                        {
+                            String firstCoords = formatCoords(randY,randX);
+                            String secondCoords = formatCoords(randY-u,randX);
+                            
+                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
+                                System.out.print("True in u");
+                                placed = true;
+                            }
                         }
                     }
                 }
 
                 //Check Down
-                for(int d = 0; d < lengths[n]; d++){
-                    System.out.print("Im in up need length of " + lengths[n]);
-                    System.out.println("Checking u:" + d + "At " + Integer.toString(randY+d) + ""+ randX);
-
-                    if(board[randY+d][randX].equals("O") || placed == true || randY+lengths[n] > 9){
-                        System.out.println("Im leaving DOWN CHECK");
-                        break; //If there is a dispute for space, leaves the loop
-                    }
-
-                    if(d == lengths[n]-1)
-                    {
-                        String firstCoords = formatCoords(randY,randX);
-                        String secondCoords = formatCoords(randY+d,randX);
-                        
-                        if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
-                            System.out.print("True in d");
-                            placed = true;
+                if(!placed){
+                    for(int d = 0; d < lengths[n]; d++){
+                        System.out.println("Im in down, need length of " + lengths[n]);
+                        System.out.println("Checking at " + formatCoords(randY+d,randX));
+    
+                        if(board[randY+d][randX-1].equals("O") || randY+lengths[n] > 9){
+                            System.out.println("Im leaving DOWN CHECK");
+                            break; //If there is a dispute for space, leaves the loop
+                        }
+    
+                        if(d == lengths[n]-1)
+                        {
+                            String firstCoords = formatCoords(randY,randX);
+                            String secondCoords = formatCoords(randY+d,randX);
+                            
+                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
+                                System.out.print("True in d");
+                                placed = true;
+                            }
                         }
                     }
                 }
 
                 //Check Right
-                for(int r = 0; r < lengths[n]; r++){
-                    if(board[randY][randX+r].equals("O") || placed == true || randX+lengths[n] > 9){
-                        break; //If there is a dispute for space, leaves the loop
-                    }
-
-                    if(r == lengths[n]-1)
-                    {
-                        String firstCoords = formatCoords(randY,randX);
-                        String secondCoords = formatCoords(randY,randX-r);
-                        
-                        if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
-                            System.out.print("True in r");
-                            placed = true;
+                if(!placed){
+                    for(int r = 0; r < lengths[n]; r++){
+                        System.out.println("Im in right, need length of " + lengths[n]);
+                        System.out.println("Checking at " + formatCoords(randY,randX+r-1));
+    
+                        if(board[randY][randX+r-1].equals("O") || randX+lengths[n] - 1 > 9){
+                            System.out.println("Im leaving RIGHT CHECK");
+                            break; //If there is a dispute for space, leaves the loop
                         }
-                    }
-                }       
+    
+                        if(r == lengths[n]-1)
+                        {
+                            String firstCoords = formatCoords(randY,randX);
+                            String secondCoords = formatCoords(randY,randX-r);
+                            
+                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
+                                System.out.print("True in r");
+                                placed = true;
+                            }
+                        }
+                    }       
+                }
 
                 //Check Left
-                for(int l = 0; l < lengths[n]; l++){
-                    if(board[randY][randX-l].equals("O") || placed == true || randX-lengths[n] < 0){
-                        break; //If there is a dispute for space, leaves the loop
-                    }
-
-                    if(l == lengths[n]-1)
-                    {
-                        String firstCoords = formatCoords(randY,randX);
-                        String secondCoords = formatCoords(randY,randX-l);
-                        
-                        if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
-                            System.out.print("True in l");
-                            placed = true;
+                if(!placed){
+                    for(int l = 0; l < lengths[n]; l++){
+                        System.out.println("Im in right, need length of " + lengths[n]);
+                        System.out.println("Checking at " + formatCoords(randY,randX+l-1));
+    
+                        if(board[randY][randX-l-1].equals("O") || randX-lengths[n]-1 < 0){
+                            System.out.println("Im leaving LEFT CHECK");
+                            break; //If there is a dispute for space, leaves the loop
                         }
-                    }
-                }        
+    
+                        if(l == lengths[n]-1)
+                        {
+                            String firstCoords = formatCoords(randY,randX);
+                            String secondCoords = formatCoords(randY,randX-l);
+                            
+                            if(BoardManager.placingCheck(board,firstCoords, secondCoords, lengths[n], names[n])){
+                                System.out.print("True in l");
+                                placed = true;
+                            }
+                        }
+                    }        
+                }
 
                 //If nothing works, will pick a different random spot, and Repeat
                 if(!placed){
                     do{
                         randY = rand.nextInt(10);
-                        randX = rand.nextInt(10);
+                        randX = rand.nextInt(10) + 1;
                         System.out.println(randY +""+ randX +"again");
-                    }while(board[randY][randX].equals("O"));
+                    }while(board[randY][randX-1].equals("O"));
                 }
-
             }
 
             System.out.println("Placed piece in CPU Board");
