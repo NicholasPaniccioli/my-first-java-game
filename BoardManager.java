@@ -1,7 +1,3 @@
-import java.io.*;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
 class BoardManager {
     public static String[] letters = {"A","B","C","D","E","F","G","H","I","J"};
     public static String border = "_|_________________________________";
@@ -94,44 +90,6 @@ class BoardManager {
         board[firstCoords][secondCoords] = "X";
     }
 
-    //Takes the given coordinates and places the pieces based on orientation
-    public static void placePieces(String[][] board, int sameCoord, int startCoord, int endCoord, int length, boolean vertical, String name, Boolean player){
-    
-        //Creates a new piece to store the points it covers
-        Piece newPiece = new Piece(name,length);
-        List<String> locationList = new ArrayList<String>(Arrays.asList(newPiece.locations));
-
-        //Vertical otherwise horizontal
-        if(vertical)
-        {
-            for(int i = startCoord; i <= endCoord; i++)
-            {
-                System.out.print("Point picked. ");
-                board[i][sameCoord] = "O";
-                String converted = numToLetter(i); //Converts the first coord back to letter
-                String full = converted.concat(Integer.toString(sameCoord+1)); //Adds 1 to account for starting at 0
-                locationList.add(full);
-                newPiece.locations = locationList.toArray(newPiece.locations);
-            }
-        }else{
-            for(int i = startCoord; i <= endCoord; i++)
-            {
-                System.out.print("Point picked. ");
-                board[sameCoord][i] = "O";
-                String converted = numToLetter(sameCoord); //Converts the first coord back to letter
-                String full = converted.concat(Integer.toString(i+1)); //Adds 1 to account for starting at 0
-                locationList.add(full);
-                newPiece.locations = locationList.toArray(newPiece.locations);
-            }
-        }
-
-        //Checks if it was a player or cpu created piece and adds to appropriate list
-        if(player){
-            PieceManager.pieceList.add(newPiece);
-        }else if(!player){
-            PieceManager.cpuPieceList.add(newPiece);
-        }
-    }
     //Helper method to check all conditions before a piece can be placed
     public static boolean placingCheck(String[][] board, String coords1, String coords2, int length, String name, boolean player){
 
@@ -174,7 +132,7 @@ class BoardManager {
             }
 
             //Once checks are passed, places the piece (Horizontal)
-            placePieces(board, letter1, smallNumber, bigNumber, length, false, name, player);
+            PieceManager.placePieces(board, letter1, smallNumber, bigNumber, length, false, name, player);
             return true;
 
         }else if (number1 == number2){
@@ -196,70 +154,13 @@ class BoardManager {
             }
 
             //Once checks are passed, places the piece (Vertical)
-            placePieces(board, number1, smallLetter, bigLetter, length, true, name, player);
+            PieceManager.placePieces(board, number1, smallLetter, bigLetter, length, true, name, player);
             return true;
 
         }else{
             System.out.println(" The coordinate given do not place the piece in one row or column.\n Please give new coordinates.");
             return false;
         }
-    }
-
-    public static void placingQuestions(String[][] playerBoard, String[][] cpuBoard){
-        String startPoint;
-        String endPoint;
-
-        int[] pieceLengths = {5,4,3,3,2};
-        String[] pieceNames = {"Man-o-War","Barge","Dauntless","Pirate","Dingy"};
-
-        //To get help get input from the console/player
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader buffer = new BufferedReader(isr);
-        String input = "";
-                        
-        for(int i = 0; i < 5; i++){
-           boolean placed = false;
-
-            while(!placed){
-                System.out.println("Pick a Starting Point for the " + pieceNames[i] + " piece that's " + pieceLengths[i] + " spaces in length: ");
-                try{
-                    input = buffer.readLine().trim().toLowerCase();
-                }catch(IOException e){
-                    System.out.println("\nPlease put in a proper action\n");
-                }
-                                
-                 //Checks that the input is a coordinate and then stores it
-                if(coordinateCheck(input)){
-                    startPoint = input;
-                    System.out.println("Pick an Ending Point for the piece: ");
-                    try{
-                        input = buffer.readLine().trim().toLowerCase();
-                    }catch(IOException e){
-                        System.out.println("\nPlease put in a proper action\n");
-                    }
-    
-                    //Checks that the second input is a coordinate and stores it
-                    if(coordinateCheck(input)){
-                        endPoint = input;
-    
-                        //With coordinates collected begins to check they are valid for placement
-                        //If they pass, places the game piece in the given location
-                        placed = placingCheck(playerBoard, startPoint, endPoint, pieceLengths[i], pieceNames[i], true);
-    
-                    }else{
-                        System.out.println("\nPlease put in an acceptable response\n");
-                    }
-    
-                }else{
-                    System.out.println("\nPlease put in an acceptable response\n");
-                }
-            }
-            //Feedback after placing piece
-            System.out.println("Piece was placed!\n");
-            printBoards(playerBoard,cpuBoard);
-        }
-        PieceManager.playerPieces = PieceManager.pieceList.toArray(PieceManager.playerPieces);
-        PieceManager.cpuPieces = PieceManager.cpuPieceList.toArray(PieceManager.cpuPieces);
     }
 
     //Method to check for valid coordinates
