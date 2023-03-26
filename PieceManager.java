@@ -23,7 +23,7 @@ class PieceManager {
             {
                 for(int i = startCoord; i <= endCoord; i++)
                 {
-                    System.out.print("Point picked. ");
+                    //System.out.print("Point picked. ");
                     board[i][sameCoord] = "O";
                     String converted = BoardManager.numToLetter(i); //Converts the first coord back to letter
                     String full = converted.concat(Integer.toString(sameCoord+1)); //Adds 1 to account for starting at 0
@@ -33,7 +33,7 @@ class PieceManager {
             }else{
                 for(int i = startCoord; i <= endCoord; i++)
                 {
-                    System.out.print("Point picked. ");
+                    //System.out.print("Point picked. ");
                     board[sameCoord][i] = "O";
                     String converted = BoardManager.numToLetter(sameCoord); //Converts the first coord back to letter
                     String full = converted.concat(Integer.toString(i+1)); //Adds 1 to account for starting at 0
@@ -68,7 +68,7 @@ class PieceManager {
             do{
                 randY = rand.nextInt(10);
                 randX = rand.nextInt(10) + 1;
-                System.out.println(randY +""+ randX);
+                //System.out.println(randY +""+ randX);
             }while(board[randY][randX-1].equals("O"));   
 
             placed = false;
@@ -111,12 +111,12 @@ class PieceManager {
                     do{
                         randY = rand.nextInt(10);
                         randX = rand.nextInt(10) + 1;
-                        System.out.println(randY +""+ randX +"again");
+                        //System.out.println(randY +""+ randX +"again");
                     }while(board[randY][randX-1].equals("O"));
                 }
             }
 
-            System.out.println("Placed piece in CPU Board");
+            //System.out.println("Placed piece in CPU Board");
         }
     }
 
@@ -129,10 +129,10 @@ class PieceManager {
 
     static public boolean checkUp(String[][] board, int randX, int randY, int n){
         for(int u = 0; u < Game.pieceLengths[n]; u++){
-            System.out.println("Im in up, need length of " + Game.pieceLengths[n]); 
-            System.out.println("Checking at " + formatCoords(randY-u,randX));
+            //System.out.println("Im in up, need length of " + Game.pieceLengths[n]); 
+            //System.out.println("Checking at " + formatCoords(randY-u,randX));
             if(board[randY-u][randX-1].equals("O") || randY-Game.pieceLengths[n] < 0){
-                System.out.println("Im leaving UP CHECK");
+                //System.out.println("Im leaving UP CHECK");
                 return false;
             } 
 
@@ -144,7 +144,7 @@ class PieceManager {
                 String secondCoords = formatCoords(randY-u,randX);
                 
                 if(BoardManager.placingCheck(board,firstCoords, secondCoords, Game.pieceLengths[n], Game.pieceNames[n], false)){
-                    System.out.print("True in u");
+                    //System.out.print("True in u");
                     placed = true;
                     return placed;
                 }
@@ -157,11 +157,11 @@ class PieceManager {
     static public boolean checkDown(String[][] board, int randX, int randY, int n)
     {
         for(int d = 0; d < Game.pieceLengths[n]; d++){
-            System.out.println("Im in down, need length of " + Game.pieceLengths[n]);
-            System.out.println("Checking at " + formatCoords(randY+d,randX));
+            //System.out.println("Im in down, need length of " + Game.pieceLengths[n]);
+            //System.out.println("Checking at " + formatCoords(randY+d,randX));
 
             if(board[randY+d][randX-1].equals("O") || randY+Game.pieceLengths[n] > 9){
-                System.out.println("Im leaving DOWN CHECK");
+                //System.out.println("Im leaving DOWN CHECK");
                 return false;
             }
 
@@ -171,7 +171,7 @@ class PieceManager {
                 String secondCoords = formatCoords(randY+d,randX);
                 
                 if(BoardManager.placingCheck(board,firstCoords, secondCoords, Game.pieceLengths[n], Game.pieceNames[n], false)){
-                    System.out.print("True in d");
+                    //System.out.print("True in d");
                     placed = true;
                     return placed;
                 }
@@ -183,11 +183,11 @@ class PieceManager {
 
     static public boolean checkRight(String[][] board, int randX, int randY, int n){
         for(int r = 0; r < Game.pieceLengths[n]; r++){
-            System.out.println("Im in right, need length of " + Game.pieceLengths[n]);
-            System.out.println("Checking at " + formatCoords(randY,randX+r-1));
+            //System.out.println("Im in right, need length of " + Game.pieceLengths[n]);
+            //System.out.println("Checking at " + formatCoords(randY,randX+r-1));
 
             if(board[randY][randX+r-1].equals("O") || randX+Game.pieceLengths[n]-1 > 9){
-                System.out.println("Im leaving RIGHT CHECK");
+                //System.out.println("Im leaving RIGHT CHECK");
                 return false;
             }
 
@@ -197,7 +197,7 @@ class PieceManager {
                 String secondCoords = formatCoords(randY,randX+r);
                 
                 if(BoardManager.placingCheck(board,firstCoords, secondCoords, Game.pieceLengths[n], Game.pieceNames[n], false)){
-                    System.out.print("True in r");
+                    //System.out.print("True in r");
                     placed = true;
                     return placed;
                 }
@@ -209,11 +209,11 @@ class PieceManager {
 
     static public boolean checkLeft(String[][] board, int randX, int randY, int n){
         for(int l = 0; l < Game.pieceLengths[n]; l++){
-            System.out.println("Im in left, need length of " + Game.pieceLengths[n]);
-            System.out.println("Checking at " + formatCoords(randY,randX-l-1));
+           // System.out.println("Im in left, need length of " + Game.pieceLengths[n]);
+            //System.out.println("Checking at " + formatCoords(randY,randX-l-1));
 
             if(board[randY][randX-l-1].equals("O") || randX-Game.pieceLengths[n]-1 < 0){
-                System.out.println("Im leaving LEFT CHECK");
+               // System.out.println("Im leaving LEFT CHECK");
                 return false;
             }
 
@@ -223,7 +223,7 @@ class PieceManager {
                 String secondCoords = formatCoords(randY,randX-l);
                 
                 if(BoardManager.placingCheck(board,firstCoords, secondCoords, Game.pieceLengths[n], Game.pieceNames[n], false)){
-                    System.out.print("True in l");
+                    //System.out.print("True in l");
                     placed = true;
                     return placed;
                 }

@@ -17,8 +17,10 @@ class Game {
         
         String intro = "\n Welcome to the Game!\n";
         String question = " Would you like to PLAY the game or QUIT the program: ";
-        String markQuestion = "\n Would you like to PLACE a piece, HIT a space, or QUIT the game: ";
+        String markQuestion = "\n Would you like to PLACE a piece, HIT a space, play a CLASSIC Game, or QUIT the game: ";
         String hitQuestion = " Pick a Spot to Hit or go BACK: ";
+        String classicPlayer = "It's your turn, where would you like to hit? Or do you want to QUIT? ";
+        String classicCPU = "It's the CPU's turn";
 
         String[][] playerBoard = new String[10][10];
         String[][] cpuBoard = new String[10][10];
@@ -89,6 +91,46 @@ class Game {
                         }
                         goBack = false;
 
+                    }else if(input.equals("classic")){
+
+                        boolean playerTurn = true;
+                        boolean computerTurn = false;
+
+                        //Loops until the player quits the game or the game conditions are met
+                        while(!goBack){
+
+                            //On player turn, loops til they pick a valid spot to hit
+                            if(playerTurn){
+                                while(playerTurn && !goBack){
+                                    System.out.print("\n" + classicPlayer);
+                                    try{
+                                        input = buffer.readLine().trim().toLowerCase();
+                                    }catch(IOException e){
+                                        System.out.println("\n Please put in a proper action\n" + hitQuestion);
+                                    }
+    
+                                    if(input.equals("quit")){
+                                        goBack = true;
+                                    }else if(BoardManager.coordinateCheck(input)){
+                                        BoardManager.hitBoard(cpuBoard, input, true);
+                                        BoardManager.printBoards(playerBoard,cpuBoard);
+                                        playerTurn = false;
+                                    }else{
+                                        System.out.println("\n Please put in an acceptable response\n");
+                                    }
+                                }
+                                computerTurn = true;
+                            }else if(!playerTurn){ // On computer turn loops til it hits a valid spot
+                                while(computerTurn){
+                                    System.out.println("Computer took its turn");
+                                    computerTurn = false;
+                                }
+                                playerTurn = true;
+                            }
+                        }
+                        System.out.println("Leaving the Game!");
+                        goBack = false;
+                        
                     }else if(input.equals("quit")){
                         quitGame = true;
                     }else{

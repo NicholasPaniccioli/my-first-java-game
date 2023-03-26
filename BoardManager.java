@@ -93,7 +93,7 @@ class BoardManager {
     //Helper method to check all conditions before a piece can be placed
     public static boolean placingCheck(String[][] board, String coords1, String coords2, int length, String name, boolean player){
 
-        System.out.println("C1:" + coords1 + "C2:" + coords2);
+        //System.out.println("C1:" + coords1 + "C2:" + coords2);
         
         //Coordinates for the 1st Set
         int letter1 = letterToNum(coords1);
@@ -110,7 +110,8 @@ class BoardManager {
         int bigNumber = biggerNumber(number1, number2);
         int smallNumber = smallerNumber(number1, number2);
 
-        System.out.println("L1:"+ letter1 + " L2:" + letter2 + " N1:" + number1 + " N2:" + number2);
+        //Used fgor placing debugging
+        //System.out.println("L1:"+ letter1 + " L2:" + letter2 + " N1:" + number1 + " N2:" + number2);
 
         //First Checks that piece is not being placed diagonally
         if(letter1 == letter2){
