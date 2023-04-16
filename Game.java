@@ -112,9 +112,16 @@ class Game {
                                     if(input.equals("quit")){
                                         goBack = true;
                                     }else if(BoardManager.coordinateCheck(input)){
-                                        BoardManager.hitBoard(cpuBoard, input, true);
-                                        BoardManager.printBoards(playerBoard,cpuBoard);
-                                        playerTurn = false;
+                                        //After checking if input is a valid answer will check if it has been hit
+                                        if(!BoardManager.coordinateHit(cpuBoard, input))
+                                        {    
+                                            BoardManager.hitBoard(cpuBoard, input, true);
+                                            BoardManager.printBoards(playerBoard,cpuBoard);
+                                            playerTurn = false;
+                                        }else{
+                                            //if so
+                                            BoardManager.hitBoard(cpuBoard, input, true);
+                                        }
                                     }else{
                                         System.out.println("\n Please put in an acceptable response\n");
                                     }

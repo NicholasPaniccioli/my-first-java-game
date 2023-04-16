@@ -181,6 +181,20 @@ class BoardManager {
         return false;
     }
 
+    //Checks if coordinate has already been hit
+    public static boolean coordinateHit(String[][] board, String coords){
+        int firstCoords = letterToNum(coords);
+        int secondCoords = Integer.parseInt(coords.substring(1)) - 1;
+
+        if(board[firstCoords][secondCoords] != "X"){
+            return false;
+        }else if(board[firstCoords][secondCoords].equals("X")){
+            return true;
+        }
+        
+        return false;
+    }
+
     //Checks the letter given by the player and gives the corresponding number
     public static int letterToNum(String coords){
         switch(coords.charAt(0)){
